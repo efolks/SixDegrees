@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getActorCredits } from '../store';
+import { fetchActorCredits } from '../store/reducer';
 import {
   Image,
   Platform,
@@ -23,7 +23,7 @@ class ActorInput extends Component {
     }
 
     handlePressSubmit(){
-        this.fetchActorCredits(this.state.actorFirstName, this.state.actorLastName)
+        this.displayActorCredits(this.state.actorFirstName, this.state.actorLastName)
     }
 
     render () {
@@ -39,7 +39,7 @@ class ActorInput extends Component {
             
 const mapDispatch = (dispatch) => (
     {
-        fetchActorCredits: (actorFirstName, actorLastName) => dispatch(getActorCredits(actorFirstName, actorLastName))
+        displayActorCredits: (actorFirstName, actorLastName) => dispatch(fetchActorCredits(actorFirstName, actorLastName))
     }
 )
 
