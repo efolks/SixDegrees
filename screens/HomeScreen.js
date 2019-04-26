@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <Game style={styles.welcomeContainer} />
+          <Game style={styles.welcomeContainer} /> 
           {/* <ActorInput style={styles.welcomeContainer}/> */}
           {/* <View style={styles.welcomeContainer}>
             <Image

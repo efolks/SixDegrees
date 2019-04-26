@@ -13,6 +13,12 @@ import {
   Button
 } from 'react-native';
 
+const styles = StyleSheet.create({
+    inputField: {
+        borderColor: 'black',
+    }
+})
+
 class ActorInput extends Component {
     constructor(){
         super()
@@ -20,17 +26,19 @@ class ActorInput extends Component {
             actorFirstName: '',
             actorLastName: ''
         }
+        this.handlePressSubmit = this.handlePressSubmit.bind(this);
     }
 
     handlePressSubmit(){
-        this.displayActorCredits(this.state.actorFirstName, this.state.actorLastName)
+        this.props.displayActorCredits(this.state.actorFirstName, this.state.actorLastName)
     }
+
 
     render () {
         return (
             <View>
-                <TextInput editable={true} onChangeText={(text) => this.setState({actorFirstName: text})} value={this.state.actorFirstName} />
-                <TextInput editable={true} onChangeText={(text) => this.setState({actorLastName: text})} value={this.state.actorLastName} />
+                <TextInput placeholder="First Name" style={{height: 40, borderColor: 'gray', borderWidth: 1}} editable={true} onChangeText={(text) => this.setState({actorFirstName: text})} value={this.state.actorFirstName} />
+                <TextInput placeholder="Last Name" style={{height: 40, borderColor: 'gray', borderWidth: 1}} editable={true} onChangeText={(text) => this.setState({actorLastName: text})} value={this.state.actorLastName} />
                 <Button title="Submit" onPress={this.handlePressSubmit} />
             </View>
         )
