@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native'
 
-const PotentialAnswer = (props) => {
+const PotentialFilms = (props) => {
     
     const { title, posterURL } = props
 
@@ -13,4 +13,4 @@ const PotentialAnswer = (props) => {
     )
 }
 
-export default PotentialAnswer;
+export default PotentialFilms;
