@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchActorCredits, toggleGameState } from '../store/reducer';
+import { fetchActorCredits, toggleGameState, getStartingActor } from '../store/reducer';
 import {
     Image,
     Platform,
@@ -20,8 +20,9 @@ import {
     }
 
     handlePressSubmit(){
-        this.props.fetchActorCredits(this.state.actorFirstName, this.state.actorLastName);
+        this.props.fetchActorCredits(this.props.first, this.props.last);
         this.props.toggleGameState();
+        this.props.fetchStartingActor();
     }
 
 
@@ -37,7 +38,8 @@ import {
 const mapDispatch = (dispatch) => (
     {
         fetchActorCredits: (actorFirstName, actorLastName) => dispatch(fetchActorCredits(actorFirstName, actorLastName)),
-        toggleGameState: () => dispatch(toggleGameState())
+        toggleGameState: () => dispatch(toggleGameState()),
+        fetchStartingActor: () => dispatch(getStartingActor())
     }
 )
 

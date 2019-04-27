@@ -4,6 +4,7 @@ import AnswerInput from './AnswerInput'
 import PotentialFilms from './PotentialFilms'
 import SubmitButton from './SubmitButton'
 import CurrentActor from './CurrentActor'
+import CurrentFilm from './CurrentFilm'
 import getStartingActor from '../store/reducer'
 import {
   Image,
@@ -22,22 +23,26 @@ class Game extends Component {
     //     super(props)
 
     // }
-    componentDidMount() {
-        this.props.fetchStartingActor();
-    }
+    // componentDidMount() {
+    //     console.log('Game will mount')
+    //     this.props.fetchStartingActor();
+    // }
 
     render() {
         return (
             <View>
                 {/* <AnswerInput /> */}
-                {this.props.isGuessingActor ? <CurrentActor actor={this.props.currentActor} /> : <CurrentFilm film={this.props.film} />}
-                <SubmitButton />
+                {this.props.isGuessingActor ? <CurrentFilm film={this.props.film} /> : <CurrentActor actor={this.props.currentActor} /> }
+                <SubmitButton first={'Matt'} last={'Damon'} />
                 {this.props.isGuessingActor ? this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={film.id} />)
                 : <Text>ActorList</Text> }
             </View>
         )
     }
+    
 }
+
+console.log('rendered?')
 
 const mapState = (state) => (
     {
@@ -50,7 +55,7 @@ const mapState = (state) => (
 
 const mapDispatch = (dispatch) => (
     {
-        fetchStartingActor: () => dispatch(getStartingActor)
+        fetchStartingActor: () => dispatch(getStartingActor())
     }
 )
 

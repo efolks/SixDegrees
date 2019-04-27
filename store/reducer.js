@@ -2,7 +2,7 @@ import MOVIE_API_KEY from '../secrets'
 
 const initialState = {
     currentActor: '',
-    currentFilm: '',
+    currentFilm: [],
     creditsToSelectFrom: [],
     isGuessingActor: false
 };
@@ -70,6 +70,7 @@ export const fetchActorCredits = (actorFirstName, actorLastName) => (dispatch) =
 
 export const getStartingActor = () => (dispatch) => {
   try {
+    console.log('We are in the starting actor thunk')
     fetch('https://api.themoviedb.org/3/person/popular?api_key=8f96191e0a061a9dd93b46681d2b0100')
     .then(function(response) {
       return response.json()
@@ -86,6 +87,7 @@ export const getStartingActor = () => (dispatch) => {
     })
     .then(function(actor) {
       dispatch(generateStartingActor(actor))
+      console.log('ACTOR:', actor)
     })
   } catch (error) { console.log('We had trouble starting the game') }
 }
