@@ -21,9 +21,12 @@ class HomeScreen extends React.Component {
     this.handlePressSubmit = this.handlePressSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.populateStartingActor()
+  }
+
   handlePressSubmit(){
     this.props.startGame()
-    this.props.populateStartingActor()
 }
 
   render() {
@@ -92,7 +95,3 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
 });
-        
-
-
-

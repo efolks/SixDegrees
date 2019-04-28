@@ -2,7 +2,7 @@ import MOVIE_API_KEY from '../secrets'
 
 const initialState = {
     currentActor: '',
-    currentFilm: [],
+    currentFilm: '',
     creditsToSelectFrom: [],
     castToSelectFrom: [],
     isGuessingActor: false,
@@ -11,11 +11,13 @@ const initialState = {
 
 //Action Types
 const GENERATE_ACTOR = 'GENERATE_ACTOR'
-const GET_STARTING_ACTOR_CREDITS = 'GET_ACTOR_CREDITS'
+const GET_STARTING_ACTOR_CREDITS = 'GET_STARTING_ACTOR_CREDITS'
 const TOGGLE_GAME_STATE = 'TOGGLE_GAME_STATE'
 const TOGGLE_IS_ACTIVE_GAME = 'TOGGLE_IS_ACTIVE_GAME'
 const GET_FILM_CREDITS = 'GET_FILM_CREDITS'
 const GET_ACTOR_CREDITS = 'GET_ACTOR_CREDITS'
+const UPDATE_CURRENT_ACTOR = 'UPDATE_CURRENT_ACTOR'
+const UPDATE_CURRENT_FILM = 'UPDATE_CURRENT_FILM'
 
 //Action Creators
 const generateStartingActor = (actor) => (
@@ -52,9 +54,24 @@ const getFilmCredits = (castArray) => (
 )
 
 const getActorCredits = (creditsArray) => (
+  console.log('In Action Creator, credits Array:', creditsArray),
   {
     type: GET_ACTOR_CREDITS,
     creditsArray
+  }
+)
+
+export const updateCurrentActor = (actorName) => (
+  {
+    type: UPDATE_CURRENT_ACTOR,
+    actorName
+  }
+)
+
+export const updateCurrentFilm = (filmName) => (
+  {
+    type: UPDATE_CURRENT_FILM,
+    filmName
   }
 )
 
@@ -64,17 +81,14 @@ export const fetchStartingActorCredits = (actor) => (dispatch) => {
     const actorArray = actor.split(' ');
     let searchString = '';
     actorArray.forEach(word => {
-      console.log('WORD: ', word)
       searchString += (word + '+')
-    })
-    console.log('SearchString: ', searchString )
+    }) 
 
     fetch('https://api.themoviedb.org/3/search/person?api_key=' + MOVIE_API_KEY + '&query=' + searchString.slice(0, searchString.length))
      .then(function(response) {
        return response.json();
      })
      .then(function(data) {
-       console.log('DATA: ', data)
        return data.results[0].id;
      })
      .then(function(id) {
@@ -109,7 +123,6 @@ export const fetchFilmCast = (id) => (dispatch) => {
        return response.json();
      })
      .then(function(data) {
-       console.log('DATA: ', data)
        return data.cast;
      })
      .then(function(castArray) {
@@ -122,7 +135,10 @@ export const fetchFilmCast = (id) => (dispatch) => {
        })
     })
     .then(function(filteredCastArray){
-      dispatch(getFilmCredits(filteredCastArray))
+      return filteredCastArray.slice(0, 20)
+    })
+    .then(function(slicedCastArray){
+      dispatch(getFilmCredits(slicedCastArray))
     })
    } catch (error) { console.log('this is an error') }
 }
@@ -145,14 +161,14 @@ export const fetchStartingActor = () => (dispatch) => {
     })
     .then(function(actor) {
       dispatch(generateStartingActor(actor))
-      dispatch(fetchStartingActorCredits(actor))
+      // dispatch(fetchStartingActorCredits(actor))
     })
   } catch (error) { console.log('We had trouble starting the game') }
 }
 
 export const fetchActorFilmCredits = (id) => (dispatch) => {
   try {
-
+    console.log('ID in THUNK:', id)
     fetch('https://api.themoviedb.org/3/person/' + id + '/movie_credits?api_key=' + MOVIE_API_KEY)
     .then(function(response) {
      return response.json();
@@ -169,7 +185,8 @@ export const fetchActorFilmCredits = (id) => (dispatch) => {
        }
      })
    })
-    .then(function(filmArray){
+  .then(function(filmArray){
+      console.log('FILMARRAY:', filmArray)
       dispatch(getActorCredits(filmArray))
     })
    } catch (error) { console.log('this is an error') }
@@ -177,10 +194,17 @@ export const fetchActorFilmCredits = (id) => (dispatch) => {
 
 
 //Reducer
+// eslint-disable-next-line complexity
 export default function(state = initialState, action) {
-  console.log(action)
   const newState = {...state}
+  console.log('Are we hitting the reducer???', action.type)
   switch (action.type) {
+    case GET_ACTOR_CREDITS:
+    console.log('IN REDUCER before updating state,', action.creditsArray)
+    newState.creditsToSelectFrom = action.creditsArray
+    newState.isGuessingActor = !newState.isGuessingActor
+    console.log('IN REDUCER after updating state,', newState.creditsArray, 'new isGuessing:', newState.isGuessingActor)
+    return newState;
     case GENERATE_ACTOR:
       newState.currentActor = action.actor
       return newState;
@@ -197,8 +221,11 @@ export default function(state = initialState, action) {
     case TOGGLE_IS_ACTIVE_GAME:
       newState.isActiveGame = !newState.isActiveGame
       return newState;
-    case GET_ACTOR_CREDITS:
-      newState.creditsToSelectFrom = action.castArray
+    case UPDATE_CURRENT_ACTOR:
+      newState.currentActor = action.actorName
+      return newState;
+      case UPDATE_CURRENT_FILM:
+      newState.currentFilm = action.filmName
       return newState;
     default:
       return state
