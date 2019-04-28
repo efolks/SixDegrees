@@ -26,6 +26,8 @@ class Game extends Component {
     render() {
         return (
             <View>
+                <Text>Connect Your Way To Kevin Bacon!</Text>
+                <Text>Degrees: {this.props.count}</Text>
                 {this.props.isGuessingActor ? <CurrentFilm film={this.props.currentFilm} /> : <CurrentActor actor={this.props.currentActor} /> }
                 {this.props.isGuessingActor ? this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={actor.id} id={actor.id} />) : this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={film.id} id={film.id} />)}
             </View>
@@ -40,7 +42,8 @@ const mapState = (state) => (
         castToSelectFrom: state.castToSelectFrom,
         isGuessingActor: state.isGuessingActor,
         currentActor: state.currentActor,
-        currentFilm: state.currentFilm
+        currentFilm: state.currentFilm,
+        count: state.answerCount
     }
 )
 
