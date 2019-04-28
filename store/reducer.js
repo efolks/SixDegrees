@@ -54,7 +54,6 @@ const getFilmCredits = (castArray) => (
 )
 
 const getActorCredits = (creditsArray) => (
-  console.log('In Action Creator, credits Array:', creditsArray),
   {
     type: GET_ACTOR_CREDITS,
     creditsArray
@@ -161,14 +160,12 @@ export const fetchStartingActor = () => (dispatch) => {
     })
     .then(function(actor) {
       dispatch(generateStartingActor(actor))
-      // dispatch(fetchStartingActorCredits(actor))
     })
   } catch (error) { console.log('We had trouble starting the game') }
 }
 
 export const fetchActorFilmCredits = (id) => (dispatch) => {
   try {
-    console.log('ID in THUNK:', id)
     fetch('https://api.themoviedb.org/3/person/' + id + '/movie_credits?api_key=' + MOVIE_API_KEY)
     .then(function(response) {
      return response.json();
@@ -186,7 +183,6 @@ export const fetchActorFilmCredits = (id) => (dispatch) => {
      })
    })
   .then(function(filmArray){
-      console.log('FILMARRAY:', filmArray)
       dispatch(getActorCredits(filmArray))
     })
    } catch (error) { console.log('this is an error') }
@@ -197,13 +193,10 @@ export const fetchActorFilmCredits = (id) => (dispatch) => {
 // eslint-disable-next-line complexity
 export default function(state = initialState, action) {
   const newState = {...state}
-  console.log('Are we hitting the reducer???', action.type)
   switch (action.type) {
     case GET_ACTOR_CREDITS:
-    console.log('IN REDUCER before updating state,', action.creditsArray)
     newState.creditsToSelectFrom = action.creditsArray
     newState.isGuessingActor = !newState.isGuessingActor
-    console.log('IN REDUCER after updating state,', newState.creditsArray, 'new isGuessing:', newState.isGuessingActor)
     return newState;
     case GENERATE_ACTOR:
       newState.currentActor = action.actor

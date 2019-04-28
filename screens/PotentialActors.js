@@ -13,7 +13,6 @@ class PotentialActors extends Component {
         console.log('PROPS ID:', this.props.id)
         this.props.populateActorFilmCredits(this.props.id)
         this.props.updateActor(this.props.name)
-        // this.props.toggleGameState()
     }
 
     render () {

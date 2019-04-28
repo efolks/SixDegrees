@@ -12,7 +12,6 @@ class PotentialFilms extends Component {
     handleOnPress() {
         this.props.populateFilmCast(this.props.id)
         this.props.updateFilm(this.props.title)
-        // this.props.toggleGameState()
     }
 
     render () {
