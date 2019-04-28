@@ -6,7 +6,10 @@ const initialState = {
     creditsToSelectFrom: [],
     castToSelectFrom: [],
     isGuessingActor: false,
-    isActiveGame: false
+    isActiveGame: false,
+    answerCount: 0,
+    isWinner: false,
+    isLoser: false
 };
 
 //Action Types
@@ -18,6 +21,7 @@ const GET_FILM_CREDITS = 'GET_FILM_CREDITS'
 const GET_ACTOR_CREDITS = 'GET_ACTOR_CREDITS'
 const UPDATE_CURRENT_ACTOR = 'UPDATE_CURRENT_ACTOR'
 const UPDATE_CURRENT_FILM = 'UPDATE_CURRENT_FILM'
+const WON_GAME = 'WON_GAME'
 
 //Action Creators
 const generateStartingActor = (actor) => (
@@ -74,6 +78,12 @@ export const updateCurrentFilm = (filmName) => (
   }
 )
 
+const wonGame = () => (
+  {
+    type: WON_GAME
+  }
+)
+
 //Thunks
 export const fetchStartingActorCredits = (actor) => (dispatch) => {
   try {
@@ -126,6 +136,9 @@ export const fetchFilmCast = (id) => (dispatch) => {
      })
      .then(function(castArray) {
        return castArray.map(actor => {
+         if (actor.name.trim() === 'Kevin Bacon'){
+          dispatch(wonGame())
+         }
          return {
            name: actor.name,
            id: actor.id,
@@ -188,7 +201,6 @@ export const fetchActorFilmCredits = (id) => (dispatch) => {
    } catch (error) { console.log('this is an error') }
 }
 
-
 //Reducer
 // eslint-disable-next-line complexity
 export default function(state = initialState, action) {
@@ -197,6 +209,7 @@ export default function(state = initialState, action) {
     case GET_ACTOR_CREDITS:
     newState.creditsToSelectFrom = action.creditsArray
     newState.isGuessingActor = !newState.isGuessingActor
+    newState.answerCount += 1
     return newState;
     case GENERATE_ACTOR:
       newState.currentActor = action.actor
@@ -208,6 +221,10 @@ export default function(state = initialState, action) {
       newState.creditsToSelectFrom = action.actorFilmCredits
       return newState;
     case GET_FILM_CREDITS:
+      if (newState.answerCount === 5){
+        newState.isLoser = true
+        newState.isActiveGame = false
+      }
       newState.castToSelectFrom = action.castArray
       newState.isGuessingActor = !newState.isGuessingActor;
       return newState;
@@ -217,8 +234,12 @@ export default function(state = initialState, action) {
     case UPDATE_CURRENT_ACTOR:
       newState.currentActor = action.actorName
       return newState;
-      case UPDATE_CURRENT_FILM:
+    case UPDATE_CURRENT_FILM:
       newState.currentFilm = action.filmName
+      return newState;
+    case WON_GAME:
+      newState.isWinner = true
+      newState.isActiveGame = false
       return newState;
     default:
       return state

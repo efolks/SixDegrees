@@ -32,6 +32,8 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        {this.props.isWinner ? <Text>You Won! Want to play again?</Text> : <Text />}
+        {this.props.isLoser ? <Text>Oh no you lost. Want to play again?</Text> : <Text />}
         {this.props.isActive ? <Game style={styles.welcomeContainer} /> :
         <Button title="Start Game" onPress={this.handlePressSubmit} />}
       </View>
@@ -49,7 +51,9 @@ const mapDispatch = (dispatch) => (
 
 const mapState = (state) => (
   {
-    isActive: state.isActiveGame
+    isActive: state.isActiveGame,
+    isWinner: state.isWinner,
+    isLoser: state.isLoser
   }
 )
         
