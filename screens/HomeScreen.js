@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Animated
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
@@ -32,16 +33,19 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+    <Animated.ScrollView >
+      <View style={styles.container} >
         {this.props.isWinner ? <Text>You Won! Want to play again?</Text> : <Text />}
         {this.props.isLoser ? <Text>Oh no you lost. Want to play again?</Text> : <Text />}
         {this.props.isActive ? <Game style={styles.container} /> :
         <View style={styles.container}>
           <Text h2>Connect Your Way</Text>
           <Text h2>To Kevin Bacon!</Text>
+          <Text h2>In Six Degrees!</Text>
           <Button title="Start Game" onPress={this.handlePressSubmit} raised={true} />
         </View>}
       </View>
+    </Animated.ScrollView>
     );
   }
 

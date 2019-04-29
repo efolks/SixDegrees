@@ -22,6 +22,7 @@ class PotentialFilms extends Component {
             <View style={styles.container}>
                 <Image source={{uri: `https://image.tmdb.org/t/p/original${posterURL}`}} style={styles.image} onPress={this.handleOnPress} />
                 {/* <Button title={title} onPress={this.handleOnPress} raised={true} /> */}
+                <View>
                 {this.props.title.length > 10 ?
                 <View>
                 <Text onPress={this.handleOnPress}>{this.props.title.slice(0, Math.floor(this.props.title.length / 2))}</Text>
@@ -29,6 +30,7 @@ class PotentialFilms extends Component {
                 </View> :
                 <Text onPress={this.handleOnPress}>{this.props.title}</Text>
                 }
+                </View>
                 {/* <Text onPress={this.handleOnPress}>{title}</Text> */}
             </View>
         )
