@@ -20,16 +20,16 @@ class PotentialFilms extends Component {
         const { title, posterURL, id } = this.props
         return (
             <View style={styles.container}>
-                <Image source={{uri: `https://image.tmdb.org/t/p/original${posterURL}`}} style={styles.image} onPress={this.handleOnPress} />
+                {/* <Image source={{uri: `https://image.tmdb.org/t/p/original${posterURL}`}} style={styles.image} onPress={this.handleOnPress} /> */}
                 {/* <Button title={title} onPress={this.handleOnPress} raised={true} /> */}
-                {this.props.title.length > 10 ?
+                {/* {this.props.title.length > 10 ?
                 <View>
                 <Text onPress={this.handleOnPress}>{this.props.title.slice(0, Math.floor(this.props.title.length / 2))}</Text>
                 <Text onPress={this.handleOnPress}>{this.props.title.slice(Math.floor(this.props.title.length / 2), this.props.title.length - 1)}</Text>
                 </View> :
                 <Text onPress={this.handleOnPress}>{this.props.title}</Text>
-                }
-                {/* <Text onPress={this.handleOnPress}>{title}</Text> */}
+                } */}
+                <Button title={title} onPress={this.handleOnPress}/>
             </View>
         )
 
@@ -50,7 +50,8 @@ export default connect(null, mapDispatch)(PotentialFilms);
 const styles = StyleSheet.create({
     container: {
      flexDirection: 'column',
-     alignItems: 'center'
+     alignItems: 'center',
+     padding: 10
 
     },
     image: {

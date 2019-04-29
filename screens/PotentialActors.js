@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
-import { Image } from 'react-native-elements';
+import { Image, Button } from 'react-native-elements';
 import { fetchActorFilmCredits, toggleGameState, updateCurrentActor } from '../store/reducer';
 
 class PotentialActors extends Component {
@@ -20,8 +20,9 @@ class PotentialActors extends Component {
         const { name, profilePath, id } = this.props
         return (
             <View style={styles.container}>
-                <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${profilePath}`}} style={{ width: 200, height: 200 }} />
-                <Text onPress={this.handleOnPress}>{name}</Text>
+                {/* <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${profilePath}`}} style={{ width: 200, height: 200 }} />
+                <Text onPress={this.handleOnPress}>{name}</Text> */}
+                <Button title={name} onPress={this.handleOnPress} />
             </View>
         )
 
@@ -46,7 +47,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 10
     },
     image: {
         flex: 1,
