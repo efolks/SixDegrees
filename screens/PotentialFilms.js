@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { View, Image, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import {Image } from 'react-native-elements'
 import { fetchFilmCast, toggleGameState, updateCurrentFilm } from '../store/reducer';
+
 
 class PotentialFilms extends Component {
     constructor(){
@@ -17,10 +19,17 @@ class PotentialFilms extends Component {
     render () {
         const { title, posterURL, id } = this.props
         return (
-            <ScrollView>
-                <Text onPress={this.handleOnPress}>{title}</Text>
-                {/* <Image source={require(`https://image.tmdb.org/t/p/original${posterURL}`)} style={styles.backgroundImage} /> */}
-            </ScrollView>
+            <View style={styles.container}>
+                <Image source={{uri: `https://image.tmdb.org/t/p/original${posterURL}`}} style={styles.image} onPress={this.handleOnPress} />
+                {this.props.title.length > 10 ?
+                <View>
+                <Text onPress={this.handleOnPress}>{this.props.title.slice(0, Math.floor(this.props.title.length / 2))}</Text>
+                <Text onPress={this.handleOnPress}>{this.props.title.slice(Math.floor(this.props.title.length / 2), this.props.title.length - 1)}</Text>
+                </View> :
+                <Text onPress={this.handleOnPress}>{this.props.title}</Text>
+                }
+                {/* <Text onPress={this.handleOnPress}>{title}</Text> */}
+            </View>
         )
 
     }
@@ -38,8 +47,17 @@ const mapDispatch = (dispatch) => (
 export default connect(null, mapDispatch)(PotentialFilms);
 
 const styles = StyleSheet.create({
-    backgroundImage: {
-        width: 100,
-        height: 100
+    container: {
+     flexDirection: 'column',
+     alignItems: 'center'
+
+    },
+    image: {
+        // flex: 1,
+        width: 125,
+        height: 125,
+        alignSelf: 'stretch',
+        resizeMode: 'contain'
+        
     }
 })

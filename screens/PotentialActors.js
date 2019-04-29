@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { View, Image, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { Image } from 'react-native-elements';
 import { fetchActorFilmCredits, toggleGameState, updateCurrentActor } from '../store/reducer';
 
 class PotentialActors extends Component {
@@ -18,10 +19,10 @@ class PotentialActors extends Component {
     render () {
         const { name, profilePath, id } = this.props
         return (
-            <ScrollView>
+            <View style={styles.container}>
+                <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${profilePath}`}} style={{ width: 200, height: 200 }} />
                 <Text onPress={this.handleOnPress}>{name}</Text>
-                {/* <Image source={require(`https://image.tmdb.org/t/p/original${posterURL}`)} style={styles.backgroundImage} /> */}
-            </ScrollView>
+            </View>
         )
 
     }
@@ -42,5 +43,16 @@ const styles = StyleSheet.create({
     backgroundImage: {
         width: 100,
         height: 100
+    },
+    container: {
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    image: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain'
     }
 })
+

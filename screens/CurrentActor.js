@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-    Text,
     View
   } from 'react-native';
+  import { Text } from 'react-native-elements'
 
 const CurrentActor = (props) => {
     return (
         <View>
-            <Text>{props.actor}</Text>
+            <Text h3>{props.actor}</Text>
         </View>
     )
 }

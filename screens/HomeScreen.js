@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { toggleIsActiveGame, fetchStartingActor} from '../store/reducer'
+import { Button, Text } from 'react-native-elements'
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
-  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
@@ -34,8 +33,12 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
         {this.props.isWinner ? <Text>You Won! Want to play again?</Text> : <Text />}
         {this.props.isLoser ? <Text>Oh no you lost. Want to play again?</Text> : <Text />}
-        {this.props.isActive ? <Game style={styles.welcomeContainer} /> :
-        <Button title="Start Game" onPress={this.handlePressSubmit} />}
+        {this.props.isActive ? <Game style={styles.container} /> :
+        <View style={styles.container}>
+          <Text h2>Connect Your Way</Text>
+          <Text h2>To Kevin Bacon!</Text>
+          <Button title="Start Game" onPress={this.handlePressSubmit} raised={true} />
+        </View>}
       </View>
     );
   }
@@ -65,37 +68,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    flexDirection: 'column',
+    alignItems: 'center'
+
   },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
+  button: {
+    // flexDirection: 'row',
+    // justifyContent: 'center'
+  }
 });
