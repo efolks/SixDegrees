@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import {Image } from 'react-native-elements'
+import {Image, Button } from 'react-native-elements'
 import { fetchFilmCast, toggleGameState, updateCurrentFilm } from '../store/reducer';
 
 
@@ -21,6 +21,7 @@ class PotentialFilms extends Component {
         return (
             <View style={styles.container}>
                 <Image source={{uri: `https://image.tmdb.org/t/p/original${posterURL}`}} style={styles.image} onPress={this.handleOnPress} />
+                {/* <Button title={title} onPress={this.handleOnPress} raised={true} /> */}
                 {this.props.title.length > 10 ?
                 <View>
                 <Text onPress={this.handleOnPress}>{this.props.title.slice(0, Math.floor(this.props.title.length / 2))}</Text>

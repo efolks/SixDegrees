@@ -22,6 +22,7 @@ const GET_ACTOR_CREDITS = 'GET_ACTOR_CREDITS'
 const UPDATE_CURRENT_ACTOR = 'UPDATE_CURRENT_ACTOR'
 const UPDATE_CURRENT_FILM = 'UPDATE_CURRENT_FILM'
 const WON_GAME = 'WON_GAME'
+const RESET_GAME = 'RESET_GAME'
 
 //Action Creators
 const generateStartingActor = (actor) => (
@@ -81,6 +82,12 @@ export const updateCurrentFilm = (filmName) => (
 const wonGame = () => (
   {
     type: WON_GAME
+  }
+)
+
+export const resetGame = () => (
+  {
+    type: RESET_GAME
   }
 )
 
@@ -240,6 +247,11 @@ export default function(state = initialState, action) {
     case WON_GAME:
       newState.isWinner = true
       newState.isActiveGame = false
+      return newState;
+    case RESET_GAME:
+      newState.answerCount = 0
+      newState.isLoser = false
+      newState.isGuessingActor = false
       return newState;
     default:
       return state

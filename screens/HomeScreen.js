@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { toggleIsActiveGame, fetchStartingActor} from '../store/reducer'
+import { toggleIsActiveGame, fetchStartingActor, resetGame } from '../store/reducer'
 import { Button, Text } from 'react-native-elements'
 import {
   Image,
@@ -25,7 +25,9 @@ class HomeScreen extends React.Component {
   }
 
   handlePressSubmit(){
+    this.props.reset()
     this.props.startGame()
+
 }
 
   render() {
@@ -48,7 +50,8 @@ class HomeScreen extends React.Component {
 const mapDispatch = (dispatch) => (
   {
     startGame: () => dispatch(toggleIsActiveGame()),
-    populateStartingActor: () => dispatch(fetchStartingActor())
+    populateStartingActor: () => dispatch(fetchStartingActor()),
+    reset: () => dispatch(resetGame())
   }
 )
 
