@@ -26,6 +26,6 @@ FEATURES TO ADD
 * Animation. Good places would be when moving between PotentialActors and PotentialFilms. Also, an animation that recaps how the 
   user successfully got to Kevin Bacon or how the user COULD have gotten to Kevin Bacon.
   
-  This application was made using React, React Native, and Redux, and using queries from The Movie Database API.
+  ---This application was made using React, React Native, and Redux, and using queries from The Movie Database API.---
   
-  To start connecting actors and their iconic films, simply clone to your local machine and npm install.
+  ---To start connecting actors and their iconic films, simply clone to your local machine and npm install.---
