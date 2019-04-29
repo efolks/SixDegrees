@@ -50,7 +50,8 @@ export default connect(null, mapDispatch)(PotentialFilms);
 const styles = StyleSheet.create({
     container: {
      flexDirection: 'column',
-     alignItems: 'center'
+     alignItems: 'center',
+     height: 175
 
     },
     image: {
