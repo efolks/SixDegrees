@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import {Image, Button } from 'react-native-elements'
 import { fetchFilmCast, toggleGameState, updateCurrentFilm } from '../store/reducer';
 
@@ -21,17 +21,9 @@ class PotentialFilms extends Component {
         return (
             <View style={styles.container}>
                 <Image source={{uri: `https://image.tmdb.org/t/p/original${posterURL}`}} style={styles.image} onPress={this.handleOnPress} />
-                {/* <Button title={title} onPress={this.handleOnPress} raised={true} /> */}
-                <View>
-                {this.props.title.length > 10 ?
-                <View>
-                <Text onPress={this.handleOnPress}>{this.props.title.slice(0, Math.floor(this.props.title.length / 2))}</Text>
-                <Text onPress={this.handleOnPress}>{this.props.title.slice(Math.floor(this.props.title.length / 2), this.props.title.length - 1)}</Text>
-                </View> :
-                <Text onPress={this.handleOnPress}>{this.props.title}</Text>
-                }
-                </View>
-                {/* <Text onPress={this.handleOnPress}>{title}</Text> */}
+                <TouchableOpacity style={styles.button} onPress={this.handleOnPress} >
+                    {title.split(' ').map(word => <Text key={Math.random()}>{word} </Text>)}
+                </TouchableOpacity>
             </View>
         )
 
@@ -63,5 +55,13 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         resizeMode: 'contain'
         
+    },
+    button: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        width: 100,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })

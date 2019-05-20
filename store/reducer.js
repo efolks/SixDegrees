@@ -252,6 +252,7 @@ export default function(state = initialState, action) {
       newState.answerCount = 0
       newState.isLoser = false
       newState.isGuessingActor = false
+      newState.isWinner = false
       return newState;
     default:
       return state
