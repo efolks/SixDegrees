@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { Image } from 'react-native-elements';
 import { fetchActorFilmCredits, toggleGameState, updateCurrentActor } from '../store/reducer';
 
@@ -21,7 +21,9 @@ class PotentialActors extends Component {
         return (
             <View style={styles.container}>
                 <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${profilePath}`}} style={{ width: 200, height: 200 }} />
-                <Text onPress={this.handleOnPress}>{name}</Text>
+                <TouchableOpacity style={styles.button}>
+                    <Text onPress={this.handleOnPress}>{name}</Text>
+                </TouchableOpacity>
             </View>
         )
 
@@ -53,6 +55,11 @@ const styles = StyleSheet.create({
         width: null,
         height: null,
         resizeMode: 'contain'
+    },
+    button: {
+        height: 50,
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })
 

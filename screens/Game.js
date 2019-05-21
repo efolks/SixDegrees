@@ -41,11 +41,9 @@ class Game extends Component {
             <SafeAreaView style={styles.outerContainer}>
                 {this.props.count <= 3 ? <Badge value={this.props.count} status="success" containerStyle={{ position: 'absolute', top: -10, right: 0 }}/> : <Badge value={this.props.count} status="warning" />}
                     {this.props.isGuessingActor ? <CurrentFilm film={this.props.currentFilm} /> : <CurrentActor actor={this.props.currentActor} /> }
-                {/* <View  style={styles.scrollContainer}> */}
-                    <ScrollView /*</View>pagingEnabled*/ style={styles.container} /*scrollEnabled={scrollEnabled} onContentSizeChange={this.onContentSizeChange}*/>
-                        {this.props.isGuessingActor ? this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={actor.id} id={actor.id} />) : this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={film.id} id={film.id} />)}
-                    </ScrollView>
-                {/* </View> */}
+                <View  style={styles.container}>
+                        {this.props.isGuessingActor ? this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={Math.random()} id={actor.id} />) : this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={Math.random()} id={film.id} />)}
+                </View>
             </SafeAreaView>
         )
     }
