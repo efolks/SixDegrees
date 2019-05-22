@@ -5,7 +5,10 @@ const initialState = {
       actorName: '',
       profilePath: ''
     },
-    currentFilm: '',
+    currentFilm: {
+      filmName: '',
+      posterURL: ''
+    },
     creditsToSelectFrom: [],
     castToSelectFrom: [],
     isGuessingActor: false,
@@ -76,10 +79,10 @@ export const updateCurrentActor = (actorProps) => (
   }
 )
 
-export const updateCurrentFilm = (filmName) => (
+export const updateCurrentFilm = (filmProps) => (
   {
     type: UPDATE_CURRENT_FILM,
-    filmName
+    filmProps
   }
 )
 
@@ -253,7 +256,7 @@ export default function(state = initialState, action) {
       newState.currentActor.profilePath = action.profilePath
       return newState;
     case UPDATE_CURRENT_FILM:
-      newState.currentFilm = action.filmName
+      newState.currentFilm = action.filmProps
       return newState;
     case WON_GAME:
       newState.isWinner = true
