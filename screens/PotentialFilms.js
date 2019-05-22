@@ -13,7 +13,12 @@ class PotentialFilms extends Component {
 
     handleOnPress() {
         this.props.populateFilmCast(this.props.id)
-        this.props.updateFilm(this.props.title)
+        this.props.updateFilm(
+            {
+                filmName: this.props.title,
+                posterURL: this.props.posterURL
+            }
+        )
     }
 
     render () {
@@ -34,7 +39,7 @@ class PotentialFilms extends Component {
 const mapDispatch = (dispatch) => (
     {
         populateFilmCast: (id) => dispatch(fetchFilmCast(id)),
-        updateFilm: (filmName) => dispatch(updateCurrentFilm(filmName)),
+        updateFilm: (filmProps) => dispatch(updateCurrentFilm(filmProps)),
         toggleGameState: () => dispatch(toggleGameState)
     }
 )
