@@ -15,7 +15,7 @@ import {
 class Game extends Component {
 
     componentDidMount(){
-        this.props.populateStartingActorCredits(this.props.currentActor)
+        this.props.populateStartingActorCredits(this.props.currentActor.actorName)
     }
 
     render() {

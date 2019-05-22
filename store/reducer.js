@@ -173,17 +173,23 @@ export const fetchStartingActor = () => (dispatch) => {
       return response.json()
     })
     .then(function(data) {
-      return data.results.map(actor => actor.name)
+      return data.results.map(actor => {
+        return {
+          actorName: actor.name,
+          profilePath: actor.profile_path
+        }
+      })
     })
-    .then(function(nameArray) {
+    .then(function(actorArray) {
       const randomizer = (array) => {
         const index = Math.floor(Math.random() * Math.floor(array.length))
         return array[index];
       }
-      return randomizer(nameArray)
+      console.log('Actor Array:', actorArray)
+      return randomizer(actorArray)
     })
-    .then(function(actor) {
-      dispatch(generateStartingActor(actor))
+    .then(function(actorObject) {
+      dispatch(generateStartingActor(actorObject))
     })
   } catch (error) { console.log('We had trouble starting the game') }
 }

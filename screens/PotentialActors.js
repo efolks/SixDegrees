@@ -11,7 +11,6 @@ class PotentialActors extends Component {
     }
 
     handleOnPress() {
-        console.log('PROPS ID:', this.props.id)
         this.props.populateActorFilmCredits(this.props.id)
         this.props.updateActor(
             {name: this.props.name,
