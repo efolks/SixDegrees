@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import {Image, Button } from 'react-native-elements'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image } from 'react-native-elements'
 import { fetchFilmCast, toggleGameState, updateCurrentFilm } from '../store/reducer';
 
 
@@ -17,7 +17,7 @@ class PotentialFilms extends Component {
     }
 
     render () {
-        const { title, posterURL, id } = this.props
+        const { title, posterURL } = this.props
         return (
             <View style={styles.container}>
                 <Image source={{uri: `https://image.tmdb.org/t/p/original${posterURL}`}} style={styles.image} onPress={this.handleOnPress} />
@@ -49,12 +49,10 @@ const styles = StyleSheet.create({
 
     },
     image: {
-        // flex: 1,
         width: 125,
         height: 125,
         alignSelf: 'stretch',
         resizeMode: 'contain'
-        
     },
     button: {
         flexDirection: 'row',

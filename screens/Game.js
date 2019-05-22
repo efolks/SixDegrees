@@ -5,46 +5,36 @@ import PotentialActors from './PotentialActors'
 import CurrentActor from './CurrentActor'
 import CurrentFilm from './CurrentFilm'
 import { fetchStartingActorCredits } from '../store/reducer'
-import { Text, Badge } from 'react-native-elements'
+import { Badge } from 'react-native-elements'
+import { Content } from 'native-base'
 import {
-  Image,
-  Platform,
-  ScrollView,
   StyleSheet,
-  TouchableOpacity,
-  View,
-  TextInput,
-  Button,
-  Dimensions,
-  SafeAreaView
+  View
 } from 'react-native';
 
-const { height } = Dimensions.get('window');
-// const height = width * 0.8;
-
 class Game extends Component {
-    state = {
-        screenHeight: 0
-    }
-
-    onContentSizeChange = (contentWidth, contentHeight) => {
-        this.setState({screenHeight: contentHeight})
-    }
 
     componentDidMount(){
-        this.props.populateStartingActorCredits(this.props.currentActor)
+        this.props.populateStartingActorCredits(this.props.currentActor.actorName)
     }
 
     render() {
-        const scrollEnabled = this.state.screenHeight > height;
         return (
-            <SafeAreaView style={styles.outerContainer}>
-                {this.props.count <= 3 ? <Badge value={this.props.count} status="success" containerStyle={{ position: 'absolute', top: -10, right: 0 }}/> : <Badge value={this.props.count} status="warning" />}
-                    {this.props.isGuessingActor ? <CurrentFilm film={this.props.currentFilm} /> : <CurrentActor actor={this.props.currentActor} /> }
-                <View  style={styles.container}>
-                        {this.props.isGuessingActor ? this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={Math.random()} id={actor.id} />) : this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={Math.random()} id={film.id} />)}
+            <Content>
+                {this.props.count <= 3 ? 
+                <Badge value={this.props.count} status="success" containerStyle={{ position: 'absolute', top: 10, right: 10 }}/> : 
+                <Badge value={this.props.count} status="warning" />}
+                <View style={styles.outerContainer}>
+                    {this.props.isGuessingActor ? 
+                    <CurrentFilm film={this.props.currentFilm} /> : 
+                    <CurrentActor actor={{...this.props.currentActor}} />}
+                    <View  style={styles.container}>
+                        {this.props.isGuessingActor ? 
+                            this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={Math.random()} id={actor.id} />) : 
+                            this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={Math.random()} id={film.id} />)}
+                    </View>
                 </View>
-            </SafeAreaView>
+            </Content>
         )
     }
     
@@ -73,18 +63,14 @@ const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      flex: 1,
-    //   height
+      flex: 1
     },
     outerContainer: {
         flexDirection: 'column',
         alignItems: 'center',
-        flex: 1,
-        height
-        // height
+        flex: 1   
     },
     scrollContainer: {
-        height,
         flex: 1
     }
   });

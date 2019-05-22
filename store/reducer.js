@@ -1,7 +1,10 @@
 import MOVIE_API_KEY from '../secrets'
 
 const initialState = {
-    currentActor: '',
+    currentActor: {
+      actorName: '',
+      profilePath: ''
+    },
     currentFilm: '',
     creditsToSelectFrom: [],
     castToSelectFrom: [],
@@ -65,10 +68,11 @@ const getActorCredits = (creditsArray) => (
   }
 )
 
-export const updateCurrentActor = (actorName) => (
+export const updateCurrentActor = (actorProps) => (
   {
     type: UPDATE_CURRENT_ACTOR,
-    actorName
+    actorName: actorProps.name,
+    profilePath: actorProps.profilePath
   }
 )
 
@@ -169,17 +173,23 @@ export const fetchStartingActor = () => (dispatch) => {
       return response.json()
     })
     .then(function(data) {
-      return data.results.map(actor => actor.name)
+      return data.results.map(actor => {
+        return {
+          actorName: actor.name,
+          profilePath: actor.profile_path
+        }
+      })
     })
-    .then(function(nameArray) {
+    .then(function(actorArray) {
       const randomizer = (array) => {
         const index = Math.floor(Math.random() * Math.floor(array.length))
         return array[index];
       }
-      return randomizer(nameArray)
+      console.log('Actor Array:', actorArray)
+      return randomizer(actorArray)
     })
-    .then(function(actor) {
-      dispatch(generateStartingActor(actor))
+    .then(function(actorObject) {
+      dispatch(generateStartingActor(actorObject))
     })
   } catch (error) { console.log('We had trouble starting the game') }
 }
@@ -239,7 +249,8 @@ export default function(state = initialState, action) {
       newState.isActiveGame = !newState.isActiveGame
       return newState;
     case UPDATE_CURRENT_ACTOR:
-      newState.currentActor = action.actorName
+      newState.currentActor.actorName = action.actorName
+      newState.currentActor.profilePath = action.profilePath
       return newState;
     case UPDATE_CURRENT_FILM:
       newState.currentFilm = action.filmName

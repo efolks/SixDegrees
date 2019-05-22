@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Image } from 'react-native-elements';
 import { fetchActorFilmCredits, toggleGameState, updateCurrentActor } from '../store/reducer';
 
@@ -11,13 +11,15 @@ class PotentialActors extends Component {
     }
 
     handleOnPress() {
-        console.log('PROPS ID:', this.props.id)
         this.props.populateActorFilmCredits(this.props.id)
-        this.props.updateActor(this.props.name)
+        this.props.updateActor(
+            {name: this.props.name,
+            profilePath: this.props.profilePath}
+            )
     }
 
     render () {
-        const { name, profilePath, id } = this.props
+        const { name, profilePath } = this.props
         return (
             <View style={styles.container}>
                 <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${profilePath}`}} style={{ width: 200, height: 200 }} />
@@ -34,7 +36,7 @@ class PotentialActors extends Component {
 const mapDispatch = (dispatch) => (
     {
         populateActorFilmCredits: (id) => dispatch(fetchActorFilmCredits(id)),
-        updateActor: (actorName) => dispatch(updateCurrentActor(actorName)),
+        updateActor: (currentActorProps) => dispatch(updateCurrentActor(currentActorProps)),
         toggleGameState: () => dispatch(toggleGameState())
     }
 )

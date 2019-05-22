@@ -1,18 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { toggleIsActiveGame, fetchStartingActor, resetGame } from '../store/reducer'
-import { Button, Text } from 'react-native-elements'
 import {
-  Image,
-  Platform,
-  ScrollView,
   StyleSheet,
-  TouchableOpacity,
-  View,
-  Animated
+  View
 } from 'react-native';
-import { WebBrowser } from 'expo';
-import { MonoText } from '../components/StyledText';
+import { Container, Header, Content, Footer, Button, Text} from 'native-base'
 import Game from './Game'
 
 class HomeScreen extends React.Component {
@@ -33,19 +26,22 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-    <Animated.ScrollView >
-      <View style={styles.container} >
-        {this.props.isWinner ? <Text>You Won! Want to play again?</Text> : <Text />}
-        {this.props.isLoser ? <Text>Oh no you lost. Want to play again?</Text> : <Text />}
-        {this.props.isActive ? <Game style={styles.container} /> :
-        <View style={styles.container}>
-          <Text h2>Connect Your Way</Text>
-          <Text h2>To Kevin Bacon!</Text>
-          <Text h2>In Six Degrees!</Text>
-          <Button title="Start Game" onPress={this.handlePressSubmit} raised={true} />
-        </View>}
-      </View>
-    </Animated.ScrollView>
+    <Container>
+      <Header />
+      <Content>
+          {this.props.isWinner ? <Text>You Won! Want to play again?</Text> : <Text />}
+          {this.props.isLoser ? <Text>Oh no you lost. Want to play again?</Text> : <Text />}
+          {this.props.isActive ? <Game style={styles.container} /> :
+          <View style={styles.container}>
+            <Text h2>Connect Your Way</Text>
+            <Text h2>To Kevin Bacon!</Text>
+            <Text h2>In Six Degrees!</Text>
+            <Button rounded onPress={this.handlePressSubmit} raised={true}><Text>Start Game</Text></Button>
+          </View>
+          }
+      </Content>
+      <Footer />
+    </Container>
     );
   }
 
@@ -78,9 +74,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center'
 
-  },
-  button: {
-    // flexDirection: 'row',
-    // justifyContent: 'center'
   }
 });
