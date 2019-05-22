@@ -6,6 +6,7 @@ import CurrentActor from './CurrentActor'
 import CurrentFilm from './CurrentFilm'
 import { fetchStartingActorCredits } from '../store/reducer'
 import { Text, Badge } from 'react-native-elements'
+import { Content } from 'native-base'
 import {
   Image,
   Platform,
@@ -36,15 +37,14 @@ class Game extends Component {
     }
 
     render() {
-        const scrollEnabled = this.state.screenHeight > height;
         return (
-            <SafeAreaView style={styles.outerContainer}>
+            <Content>
                 {this.props.count <= 3 ? <Badge value={this.props.count} status="success" containerStyle={{ position: 'absolute', top: -10, right: 0 }}/> : <Badge value={this.props.count} status="warning" />}
                     {this.props.isGuessingActor ? <CurrentFilm film={this.props.currentFilm} /> : <CurrentActor actor={this.props.currentActor} /> }
                 <View  style={styles.container}>
                         {this.props.isGuessingActor ? this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={Math.random()} id={actor.id} />) : this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={Math.random()} id={film.id} />)}
                 </View>
-            </SafeAreaView>
+            </Content>
         )
     }
     
