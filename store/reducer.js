@@ -1,7 +1,10 @@
 import MOVIE_API_KEY from '../secrets'
 
 const initialState = {
-    currentActor: '',
+    currentActor: {
+      actorName: '',
+      profilePath: ''
+    },
     currentFilm: '',
     creditsToSelectFrom: [],
     castToSelectFrom: [],
@@ -65,10 +68,11 @@ const getActorCredits = (creditsArray) => (
   }
 )
 
-export const updateCurrentActor = (actorName) => (
+export const updateCurrentActor = (actorProps) => (
   {
     type: UPDATE_CURRENT_ACTOR,
-    actorName
+    actorName: actorProps.name,
+    profilePath: actorProps.profilePath
   }
 )
 
@@ -239,7 +243,8 @@ export default function(state = initialState, action) {
       newState.isActiveGame = !newState.isActiveGame
       return newState;
     case UPDATE_CURRENT_ACTOR:
-      newState.currentActor = action.actorName
+      newState.currentActor.actorName = action.actorName
+      newState.currentActor.profilePath = action.profilePath
       return newState;
     case UPDATE_CURRENT_FILM:
       newState.currentFilm = action.filmName

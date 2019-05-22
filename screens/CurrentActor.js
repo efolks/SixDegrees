@@ -7,8 +7,8 @@ import {
 const CurrentActor = (props) => {
     return (
         <View>
-            {/* <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${props.profilePath}`}} style={{ width: 200, height: 200 }} /> */}
-            <Text h3>{props.actor}</Text>
+            <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${props.actor.profilePath}`}} style={{ width: 200, height: 200 }} />
+            <Text h3>{props.actor.actorName}</Text>
         </View>
     )
 }

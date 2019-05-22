@@ -1,19 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { toggleIsActiveGame, fetchStartingActor, resetGame } from '../store/reducer'
-// import { Button, Text } from 'react-native-elements'
 import {
-  Image,
-  Platform,
-  ScrollView,
   StyleSheet,
-  TouchableOpacity,
-  View,
-  Animated
+  View
 } from 'react-native';
 import { Container, Header, Content, Footer, Button, Text} from 'native-base'
-import { WebBrowser } from 'expo';
-import { MonoText } from '../components/StyledText';
 import Game from './Game'
 
 class HomeScreen extends React.Component {
@@ -82,9 +74,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center'
 
-  },
-  button: {
-    // flexDirection: 'row',
-    // justifyContent: 'center'
   }
 });
