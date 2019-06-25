@@ -171,7 +171,7 @@ export const fetchFilmCast = (id) => (dispatch) => {
 
 export const fetchStartingActor = () => (dispatch) => {
   try {
-    fetch('https://api.themoviedb.org/3/person/popular?api_key=' + MOVIE_API_KEY)
+    fetch('https://api.themoviedb.org/3/person/popular?api_key=' + MOVIE_API_KEY + '&page=' + Math.ceil(Math.random() * 50))
     .then(function(response) {
       return response.json()
     })
@@ -188,7 +188,6 @@ export const fetchStartingActor = () => (dispatch) => {
         const index = Math.floor(Math.random() * Math.floor(array.length))
         return array[index];
       }
-      console.log('Actor Array:', actorArray)
       return randomizer(actorArray)
     })
     .then(function(actorObject) {
