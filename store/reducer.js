@@ -18,6 +18,13 @@ const initialState = {
     isLoser: false
 };
 
+//STEPS FOR RANDOM ACTOR AS TARGET
+// 1. FetchEndingActor, run same time as populateStartingActor
+// 2. Have a boolean flag for random mode vs. kevin bacon mode
+//       -pass in actor name(random or Bacon) to fetchFilmCast
+
+//Additional: refactor all game status fields in initial state into one object
+
 //Action Types
 const GENERATE_ACTOR = 'GENERATE_ACTOR'
 const GET_STARTING_ACTOR_CREDITS = 'GET_STARTING_ACTOR_CREDITS'
