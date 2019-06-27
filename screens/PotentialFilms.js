@@ -12,7 +12,7 @@ class PotentialFilms extends Component {
     }
 
     handleOnPress() {
-        this.props.populateFilmCast(this.props.id)
+        this.props.populateFilmCast(this.props.id, this.props.targetActor.actorName)
         this.props.updateFilm(
             {
                 filmName: this.props.title,
@@ -38,13 +38,19 @@ class PotentialFilms extends Component {
 
 const mapDispatch = (dispatch) => (
     {
-        populateFilmCast: (id) => dispatch(fetchFilmCast(id)),
+        populateFilmCast: (id, actorName) => dispatch(fetchFilmCast(id, actorName)),
         updateFilm: (filmProps) => dispatch(updateCurrentFilm(filmProps)),
         toggleGameState: () => dispatch(toggleGameState)
     }
 )
 
-export default connect(null, mapDispatch)(PotentialFilms);
+const mapState = (state) => (
+    {
+        targetActor: state.targetActor
+    }
+)
+
+export default connect(mapState, mapDispatch)(PotentialFilms);
 
 const styles = StyleSheet.create({
     container: {

@@ -5,6 +5,10 @@ const initialState = {
       actorName: '',
       profilePath: ''
     },
+    targetActor: {
+      actorName: '',
+      profilePath: ''
+    },
     currentFilm: {
       filmName: '',
       posterURL: ''
@@ -26,7 +30,8 @@ const initialState = {
 //Additional: refactor all game status fields in initial state into one object
 
 //Action Types
-const GENERATE_ACTOR = 'GENERATE_ACTOR'
+const GENERATE_STARTING_ACTOR = 'GENERATE_STARTING_ACTOR'
+const GENERATE_TARGET_ACTOR = 'GENERATE_TARGET_ACTOR'
 const GET_STARTING_ACTOR_CREDITS = 'GET_STARTING_ACTOR_CREDITS'
 const TOGGLE_GAME_STATE = 'TOGGLE_GAME_STATE'
 const TOGGLE_IS_ACTIVE_GAME = 'TOGGLE_IS_ACTIVE_GAME'
@@ -40,7 +45,14 @@ const RESET_GAME = 'RESET_GAME'
 //Action Creators
 const generateStartingActor = (actor) => (
   {
-    type: GENERATE_ACTOR,
+    type: GENERATE_STARTING_ACTOR,
+    actor
+  }
+)
+
+const generateTargetActor = (actor) => (
+  {
+    type: GENERATE_TARGET_ACTOR,
     actor
   }
 )
@@ -145,7 +157,7 @@ export const fetchStartingActorCredits = (actor) => (dispatch) => {
    } catch (error) { console.log('this is an error') }
 }
 
-export const fetchFilmCast = (id) => (dispatch) => {
+export const fetchFilmCast = (id, actorName) => (dispatch) => {
   try {
 
     fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=' + MOVIE_API_KEY)
@@ -157,7 +169,7 @@ export const fetchFilmCast = (id) => (dispatch) => {
      })
      .then(function(castArray) {
        return castArray.map(actor => {
-         if (actor.name.trim() === 'Kevin Bacon'){
+         if (actor.name.trim() === actorName){
           dispatch(wonGame())
          }
          return {
@@ -176,7 +188,7 @@ export const fetchFilmCast = (id) => (dispatch) => {
    } catch (error) { console.log('this is an error') }
 }
 
-export const fetchStartingActor = () => (dispatch) => {
+export const fetchStartingAndTargetActor = () => (dispatch) => {
   try {
     fetch('https://api.themoviedb.org/3/person/popular?api_key=' + MOVIE_API_KEY + '&page=' + Math.ceil(Math.random() * 50))
     .then(function(response) {
@@ -195,10 +207,13 @@ export const fetchStartingActor = () => (dispatch) => {
         const index = Math.floor(Math.random() * Math.floor(array.length))
         return array[index];
       }
-      return randomizer(actorArray)
+      return [randomizer(actorArray), randomizer(actorArray)]
     })
-    .then(function(actorObject) {
-      dispatch(generateStartingActor(actorObject))
+    .then(function(actorObjectArray) {
+      console.log('ActorObject1:', actorObjectArray[0])
+      console.log('ActorObject2:', actorObjectArray[1])
+      dispatch(generateStartingActor(actorObjectArray[0]))
+      dispatch(generateTargetActor(actorObjectArray[1]))
     })
   } catch (error) { console.log('We had trouble starting the game') }
 }
@@ -237,8 +252,11 @@ export default function(state = initialState, action) {
     newState.isGuessingActor = !newState.isGuessingActor
     newState.answerCount += 1
     return newState;
-    case GENERATE_ACTOR:
+    case GENERATE_STARTING_ACTOR:
       newState.currentActor = action.actor
+      return newState;
+    case GENERATE_TARGET_ACTOR:
+      newState.targetActor = action.actor
       return newState;
     case TOGGLE_GAME_STATE:
       newState.isGuessingActor = !newState.isGuessingActor

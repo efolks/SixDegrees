@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { toggleIsActiveGame, fetchStartingActor, resetGame } from '../store/reducer'
+import { toggleIsActiveGame, fetchStartingAndTargetActor, resetGame } from '../store/reducer'
 import {
   StyleSheet,
   View
@@ -50,7 +50,7 @@ class HomeScreen extends React.Component {
 const mapDispatch = (dispatch) => (
   {
     startGame: () => dispatch(toggleIsActiveGame()),
-    populateStartingActor: () => dispatch(fetchStartingActor()),
+    populateStartingActor: () => dispatch(fetchStartingAndTargetActor()),
     reset: () => dispatch(resetGame())
   }
 )
