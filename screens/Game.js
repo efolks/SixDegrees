@@ -6,7 +6,7 @@ import CurrentActor from './CurrentActor'
 import CurrentFilm from './CurrentFilm'
 import { fetchStartingActorCredits } from '../store/reducer'
 import { Badge } from 'react-native-elements'
-import { Content } from 'native-base'
+import { Content, Container, Header, Text } from 'native-base'
 import {
   StyleSheet,
   View
@@ -20,14 +20,22 @@ class Game extends Component {
 
     render() {
         return (
+        <Container>
+            <Header style={styles.header}>
+                <View>                 
+                    {this.props.isGuessingActor ? 
+                    <CurrentFilm film={this.props.currentFilm} /> : 
+                    <CurrentActor actor={{...this.props.currentActor}} />}
+                </View>
+            </Header>
             <Content>
                 {this.props.count <= 3 ? 
                 <Badge value={this.props.count} status="success" containerStyle={{ position: 'absolute', top: 10, right: 10 }}/> : 
                 <Badge value={this.props.count} status="warning" />}
                 <View style={styles.outerContainer}>
-                    {this.props.isGuessingActor ? 
+                    {/* {this.props.isGuessingActor ? 
                     <CurrentFilm film={this.props.currentFilm} /> : 
-                    <CurrentActor actor={{...this.props.currentActor}} />}
+                    <CurrentActor actor={{...this.props.currentActor}} />} */}
                     <View  style={styles.container}>
                         {this.props.isGuessingActor ? 
                             this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={Math.random()} id={actor.id} />) : 
@@ -35,6 +43,7 @@ class Game extends Component {
                     </View>
                 </View>
             </Content>
+        </Container>
         )
     }
     
@@ -72,5 +81,8 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         flex: 1
+    },
+    header: {
+        height: 260
     }
   });

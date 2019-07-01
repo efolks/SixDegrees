@@ -169,6 +169,8 @@ export const fetchFilmCast = (id, actorName) => (dispatch) => {
      })
      .then(function(castArray) {
        return castArray.map(actor => {
+         console.log('Target Actor Name:', actorName)
+         console.log('Actor Name Being Checked:', actor.name.trim())
          if (actor.name.trim() === actorName){
           dispatch(wonGame())
          }
@@ -210,8 +212,8 @@ export const fetchStartingAndTargetActor = () => (dispatch) => {
       return [randomizer(actorArray), randomizer(actorArray)]
     })
     .then(function(actorObjectArray) {
-      console.log('ActorObject1:', actorObjectArray[0])
-      console.log('ActorObject2:', actorObjectArray[1])
+      // console.log('ActorObject1:', actorObjectArray[0])
+      // console.log('ActorObject2:', actorObjectArray[1])
       dispatch(generateStartingActor(actorObjectArray[0]))
       dispatch(generateTargetActor(actorObjectArray[1]))
     })

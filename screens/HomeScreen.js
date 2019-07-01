@@ -27,7 +27,6 @@ class HomeScreen extends React.Component {
   render() {
     return (
     <Container>
-      <Header />
       <Content>
           {this.props.isWinner ? <Text>You Won! Want to play again?</Text> : <Text />}
           {this.props.isLoser ? <Text>Oh no you lost. Want to play again?</Text> : <Text />}
