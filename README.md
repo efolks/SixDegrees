@@ -4,7 +4,7 @@ Six Degrees is a mobile movie trivia game where the user is supplied a starting 
 Kevin Bacon through other actors and their film credits in six degrees or under. (For example: Danny Glover was in Lethal 
 Weapon with Mel Gibson. That is one 'degree'). Upon the start of the game, a random actor is generated from a "trending in media"
 list. The app then renders a list of all movie titles, with their poster, that actor has appeared in. Upon selection of a film,
-the app then renders display of al actors in that film with their picture. A counter in the upper right hand corner of the
+the app then renders display of all actors in that film with their picture. A counter in the upper right hand corner of the
 screen keeps track of how many degrees the user has gone. If the user selects a film Kevin Bacon appeared in before the count
 gets to six the user wins.
 
