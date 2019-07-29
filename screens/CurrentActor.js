@@ -7,8 +7,8 @@ import {
 const CurrentActor = (props) => {
     return (
         <View style ={styles.view}>
-            <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${props.actor.profilePath}`}} style={{ width: 200, height: 200 }} />
-            <Text h3>{props.actor.actorName}</Text>
+            <Image style={styles.image} source={{uri: `https://image.tmdb.org/t/p/original${props.actor.profilePath}`}} />
+            <Text style={styles.actorName} h3>{props.actor.actorName}</Text>
         </View>
     )
 }
@@ -17,12 +17,15 @@ export default CurrentActor;
 
 const styles = StyleSheet.create({
     image: {
-        // flex: 1
-        paddingTop: 0
+        paddingTop: 0,
+        borderRadius: 25,
+        width: 200,
+        height: 200
     },
     view: {
         flexDirection: 'column',
-        alignItems: 'center',
-        padding: 0
-    }
+        alignContent: 'center',
+        alignItems: 'center'
+    },
+    
 })

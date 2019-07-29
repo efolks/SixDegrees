@@ -20,23 +20,20 @@ class Game extends Component {
 
     render() {
         return (
-        <Container>
+        <Container style={styles.container}>
             <Header style={styles.header}>
-                <View>                 
+                <View style={styles.currentActorOrFilmContainer}>                 
                     {this.props.isGuessingActor ? 
                     <CurrentFilm film={this.props.currentFilm} /> : 
                     <CurrentActor actor={{...this.props.currentActor}} />}
                 </View>
             </Header>
-            <Content>
+            <Content style={styles.content}>
                 {this.props.count <= 3 ? 
                 <Badge value={this.props.count} status="success" containerStyle={{ position: 'absolute', top: 10, right: 10 }}/> : 
                 <Badge value={this.props.count} status="warning" />}
                 <View style={styles.outerContainer}>
-                    {/* {this.props.isGuessingActor ? 
-                    <CurrentFilm film={this.props.currentFilm} /> : 
-                    <CurrentActor actor={{...this.props.currentActor}} />} */}
-                    <View  style={styles.container}>
+                    <View  style={styles.filmsOrActorsToSelectContainer}>
                         {this.props.isGuessingActor ? 
                             this.props.castToSelectFrom.map(actor => <PotentialActors name={actor.name} profilePath={actor.profilePath} key={Math.random()} id={actor.id} />) : 
                             this.props.filmsToSelectFrom.map(film => <PotentialFilms title={film.title} posterURL={film.posterURL} key={Math.random()} id={film.id} />)}
@@ -69,20 +66,31 @@ const mapDispatch = (dispatch) => (
 export default connect(mapState, mapDispatch)(Game)
 
 const styles = StyleSheet.create({
-    container: {
+    filmsOrActorsToSelectContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      flex: 1
+      flex: 1,
+      backgroundColor: '#5941A9' 
     },
     outerContainer: {
         flexDirection: 'column',
         alignItems: 'center',
-        flex: 1   
+        flex: 1,
+        backgroundColor: '#5941A9'   
     },
     scrollContainer: {
         flex: 1
     },
     header: {
-        height: 260
+        height: 260,
+        backgroundColor: '#5941A9',
+        borderBottomColor: '#FFCA3A',
+        borderBottomWidth: 5
+    },
+    currentActorOrFilmContainer: {
+        backgroundColor: '#5941A9' 
+    },
+    content: {
+        backgroundColor: '#5941A9'
     }
   });

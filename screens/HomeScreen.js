@@ -27,6 +27,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
     <Container style={styles.container}>
+      <Header style={styles.headerAndFooter} />
       <Content>
           {this.props.isWinner ? <Text>You Won! Want to play again?</Text> : <Text />}
           {this.props.isLoser ? <Text>Oh no you lost. Want to play again?</Text> : <Text />}
@@ -34,11 +35,11 @@ class HomeScreen extends React.Component {
           <View style={styles.landingPageContainer}>
             <Text h2 style={styles.landingPageTitle}>Welcome to Six Degrees</Text>
             <Text style={styles.gameDescription}>The game where all that hardwork of watching summer movies on TBS finally pays off. Given a star, you must connect them to another star via their film credits in less than six degrees. Can you do it?</Text>
-            <Button rounded onPress={this.handlePressSubmit} raised={true}><Text>New Challenge</Text></Button>
+            <Button rounded onPress={this.handlePressSubmit} raised={true} style={styles.newChallengeButton}><Text style={styles.newChallengeButtonText}>New Challenge</Text></Button>
           </View>
           }
       </Content>
-      <Footer />
+      <Footer style={styles.headerAndFooter} />
     </Container>
     );
   }
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     width: '75%',
-    height: 800
+    height: 640
   },
   landingPageTitle: {
     paddingBottom: '10%',
@@ -95,5 +96,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Marker Felt',
     fontSize: 25,
     textAlign: 'center'
+  },
+  newChallengeButton: {
+    backgroundColor: '#FFCA3A'
+  },
+  newChallengeButtonText: {
+    color: '#5941A9',
+    fontSize: 25
+  },
+  headerAndFooter: {
+    backgroundColor: '#E8B835'
   }
 });
