@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         width: 125,
         height: 125,
         alignSelf: 'stretch',
-        resizeMode: 'contain'
+        resizeMode: 'contain',
     },
     button: {
         flexDirection: 'row',

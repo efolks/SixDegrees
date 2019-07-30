@@ -17,15 +17,12 @@ export default CurrentActor;
 
 const styles = StyleSheet.create({
     image: {
-        paddingTop: 0,
         borderRadius: 25,
         width: 200,
         height: 200
     },
-    view: {
-        flexDirection: 'column',
-        alignContent: 'center',
-        alignItems: 'center'
-    },
-    
+    actorName: {
+        textAlign: 'center',
+        color: '#FFCA3A'
+    }
 })

@@ -25,7 +25,7 @@ class Game extends Component {
                 <View style={styles.currentActorOrFilmContainer}>                 
                     {this.props.isGuessingActor ? 
                     <CurrentFilm film={this.props.currentFilm} /> : 
-                    <CurrentActor actor={{...this.props.currentActor}} />}
+                    <CurrentActor actor={{...this.props.currentActor}} style={styles.currentActor} />}
                 </View>
             </Header>
             <Content style={styles.content}>
@@ -84,13 +84,20 @@ const styles = StyleSheet.create({
     header: {
         height: 260,
         backgroundColor: '#5941A9',
-        borderBottomColor: '#FFCA3A',
-        borderBottomWidth: 5
+        borderBottomColor: 'black',
+        borderBottomWidth: 5,
+        marginTop: '-12%'
+        
     },
     currentActorOrFilmContainer: {
-        backgroundColor: '#5941A9' 
+        backgroundColor: '#5941A9'
+        // backgroundColor: '#FFCA3A'
     },
     content: {
         backgroundColor: '#5941A9'
-    }
+    },
+    // currentActor: {
+    //     height: '10%',
+    //     backgroundColor: '#FFCA3A'
+    // }
   });
